@@ -14,6 +14,11 @@ class ChannelDeleteAction extends Action {
     let channel = client.channels.get(data.id);
 
     if (channel) {
+      if (channel.type === 'voice') {
+        const { voice } = channel.guild;
+        if (voice && voice.connection) voice.connection.disconnect();
+      }
+
       client.channels.remove(channel.id);
       channel.deleted = true;
       /**
