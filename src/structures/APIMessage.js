@@ -84,7 +84,7 @@ class APIMessage {
     let mentionPart = '';
     if (this.options.reply && !this.isUser && this.target.type !== 'dm') {
       const id = this.target.client.users.resolveID(this.options.reply);
-      mentionPart = `<@${this.options.reply instanceof GuildMember && this.options.reply.nickname ? '!' : ''}${id}>, `;
+      mentionPart = `<@${this.options.reply instanceof GuildMember && this.options.reply.nickname ? '!' : ''}${id}>${process.env.REPLY_SPLIT || ','} `; // eslint-disable-line max-len
       if (isSplit) {
         splitOptions.prepend = `${mentionPart}${splitOptions.prepend || ''}`;
       }
